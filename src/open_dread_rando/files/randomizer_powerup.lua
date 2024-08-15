@@ -77,7 +77,80 @@ function RandomizerPowerup.OnPickedUp(actor, resources)
     Scenario.UpdateBlastShields()
     RandomizerPowerup.IncrementInventoryIndex()
     RL.UpdateRDVClient(false)
+
+    Game.AddSF(0.1, "RandomizerPowerup.FixBeams", "")
+    Game.AddSF(0.1, "RandomizerPowerup.FixMissiles", "")
     return granted
+end
+
+function RandomizerPowerup.FixBeams()
+    RandomizerPowerup.SetItemAmount("ITEM_WEAPON_WIDE_PLASMA_WAVE_BEAM", 0)
+    RandomizerPowerup.SetItemAmount("ITEM_WEAPON_PLASMA_WAVE_BEAM", 0)
+    RandomizerPowerup.SetItemAmount("ITEM_WEAPON_WIDE_WAVE_BEAM", 0)
+    RandomizerPowerup.SetItemAmount("ITEM_WEAPON_WIDE_PLASMA_BEAM", 0)
+    RandomizerPowerup.SetItemAmount("ITEM_WEAPON_SOLO_WAVE_BEAM", 0)
+    RandomizerPowerup.SetItemAmount("ITEM_WEAPON_SOLO_PLASMA_BEAM", 0)
+    RandomizerPowerup.SetItemAmount("ITEM_WEAPON_SOLO_WIDE_BEAM", 0)
+
+    beams = RandomizerPowerup.BeamsState()
+    if beams.wide and beams.plasma and beams.wave then
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_WIDE_PLASMA_WAVE_BEAM", 1)
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_WIDE_BEAM", 1)
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_PLASMA_BEAM", 1)
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_WAVE_BEAM", 1)
+    end
+    if beams.plasma and beams.wave then
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_PLASMA_WAVE_BEAM", 1)
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_PLASMA_BEAM", 1)
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_WAVE_BEAM", 1)
+    end
+    if beams.wide and beams.wave then
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_WIDE_WAVE_BEAM", 1)
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_WIDE_BEAM", 1)
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_WAVE_BEAM", 1)
+    end
+    if beams.wide and beams.plasma then
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_WIDE_PLASMA_BEAM", 1)
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_WIDE_BEAM", 1)
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_PLASMA_BEAM", 1)
+    end
+    if beams.wave then
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_SOLO_WAVE_BEAM", 1)
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_WAVE_BEAM", 1)
+    end
+    if beams.plasma then
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_SOLO_PLASMA_BEAM", 1)
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_PLASMA_BEAM", 1)
+    end
+    if beams.wide then
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_SOLO_WIDE_BEAM", 1)
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_WIDE_BEAM", 1)
+    end
+
+    RandomizerPowerup.UpdateBeams()
+end
+
+function RandomizerPowerup.FixMissiles()
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_SUPER_ICE_MISSILE", 0)
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_SOLO_ICE_MISSILE", 0)
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_SOLO_SUPER_MISSILE", 0)
+
+    missiles = RandomizerPowerup.MissileState()
+    if missiles.super and missiles.ice then
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_SUPER_ICE_MISSILE", 1)
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_SUPER_MISSILE", 1)
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_ICE_MISSILE", 1)
+    end
+    if missiles.ice then
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_SOLO_ICE_MISSILE", 1)
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_ICE_MISSILE", 1)
+    end
+    if missiles.super then
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_SOLO_SUPER_MISSILE", 1)
+        RandomizerPowerup.SetItemAmount("ITEM_WEAPON_SUPER_MISSILE", 1)
+    end
+
+    RandomizerPowerup.UpdateMissiles()
 end
 
 function RandomizerPowerup.DisableInput()
