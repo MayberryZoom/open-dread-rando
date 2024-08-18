@@ -598,27 +598,67 @@
                 "properties": {
                     "actor": {
                         "$ref": "#/$defs/actor_reference_with_layer"
-                    },
-                    "tiletype": {
-                        "type": "string",
-                        "enum": [
-                            "POWERBEAM",
-                            "BOMB",
-                            "MISSILE",
-                            "SUPERMISSILE",
-                            "POWERBOMB",
-                            "SCREWATTACK",
-                            "WEIGHT",
-                            "BABYHATCHLING",
-                            "SPEEDBOOST"
-                        ]
                     }
                 },
-                "required": [
-                    "actor",
-                    "tiletype"
+                "oneOf": [
+                    {
+                        "properties": {
+                            "tiletype": {
+                                "type": "string",
+                                "enum": [
+                                    "POWERBEAM",
+                                    "BOMB",
+                                    "MISSILE",
+                                    "SUPERMISSILE",
+                                    "POWERBOMB",
+                                    "SCREWATTACK",
+                                    "WEIGHT",
+                                    "BABYHATCHLING",
+                                    "SPEEDBOOST"
+                                ]
+                            }
+                        },
+                        "required": ["tiletype"]
+                    },
+                    {
+                        "properties": {
+                            "tiles": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "tiletype": {
+                                            "type": "string",
+                                            "enum": [
+                                                "POWERBEAM",
+                                                "BOMB",
+                                                "MISSILE",
+                                                "SUPERMISSILE",
+                                                "POWERBOMB",
+                                                "SCREWATTACK",
+                                                "WEIGHT",
+                                                "BABYHATCHLING",
+                                                "SPEEDBOOST"
+                                            ]
+                                        },
+                                        "coords": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "number",
+                                                "minItems": 3,
+                                                "maxItems": 3
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "required": ["tiles"]
+                    }
                 ],
-                "additionalProperties": false
+                "required": [
+                    "actor"
+                ]
             },
             "default": []
         },

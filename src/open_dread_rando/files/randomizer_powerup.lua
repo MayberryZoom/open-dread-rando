@@ -78,8 +78,8 @@ function RandomizerPowerup.OnPickedUp(actor, resources)
     RandomizerPowerup.IncrementInventoryIndex()
     RL.UpdateRDVClient(false)
 
-    Game.AddSF(0.1, "RandomizerPowerup.FixBeams", "")
-    Game.AddSF(0.1, "RandomizerPowerup.FixMissiles", "")
+    Game.AddSF(0.5, "RandomizerPowerup.FixBeams", "")
+    Game.AddSF(0.5, "RandomizerPowerup.FixMissiles", "")
     return granted
 end
 
